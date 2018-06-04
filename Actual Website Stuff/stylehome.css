@@ -1,0 +1,22 @@
+body {
+  text-align: center;
+  font-family: sans-serif;
+  color: gray;
+  font-weight: bold;
+}
+
+h1 {
+  font-size: 100px;
+}
+
+input,select {
+  font-size: 40px;
+  text-align: center;
+  font-family: sans-serif;
+  color: dimgray;
+  font-weight: bold;
+}
+
+#search {
+  font-size: 40px;
+}

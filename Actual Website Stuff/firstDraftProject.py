@@ -35,13 +35,13 @@ header = '''<!DOCTYPE html>
   </head>
   <body>'''
 
-foot = '''  </body> 
+foot = '''  </body>
 </html>'''
 #HTML STUFF
 
 #MAIN BODY
 def RepresentsInt(s):
-    try: 
+    try:
         int(s)
         return True
     except ValueError:
@@ -73,4 +73,3 @@ def main():
 print header
 main()
 print foot
-

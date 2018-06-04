@@ -25,11 +25,12 @@ data = open(filename,'r').read()
 data = data.split('\n')
 if '' in data:
     data.remove('')
-reference = data[0]
 data = data[1:]
 for i in range(len(data)):
     data[i] = data[i].split(',')
     data[i] = data[i][:-1]
+    for h in range(len(data[i])):
+        data[i][h] = data[i][h].strip('"')
 #CLEAN UP
 
 #HTML STUFF
@@ -37,11 +38,13 @@ header = '''<!DOCTYPE html>
 <html>
   <head>
     <title>Music!</title>
+    <link rel="stylesheet" href="styletable.css">
   </head>
   <body>
     <form class="" action="home.html" method="post">
       <input type="submit" name="gohome" value="Home">
-    </form>'''
+    </form>
+    <br>'''
 
 foot = '''  </body>
 </html>'''
@@ -76,11 +79,41 @@ def main():
     if item_chosen == 'Error' or item_type == 'Error':
         print '    <h1>' + error_message1 + '</h1>'
     else:
+        item_chosen = item_chosen.lower()
         tableData = makeRows(item_chosen,item_type)
         if tableData == 'Error':
             print '    <h1>' + error_message2 + '</h1>'
         else:
+            tableData = manipulateData(tableData)
             tableHTML(tableData)
+
+def manipulateData(tData):
+    for i in range(len(tData)):
+        name = (tData[i][1]).split()
+        tData[i][1] = ''
+        for part in name:
+            tData[i][1] += part[0].upper() + part[1:] + ' '
+        artist = (tData[i][2]).split()
+        tData[i][2] = ''
+        for part in artist:
+            tData[i][2] += part[0].upper() + part[1:] + ' '
+        areLyrics = True
+        lyrics = tData[i][4]
+        if lyrics == 'NA' or lyrics == '':
+            tData[i][4] = 'No Lyrics Available'
+            areLyrics = False
+        if areLyrics:
+            lyrics = lyrics.split()
+            lyricsDict = {}
+            for word in lyrics:
+                if word in lyricsDict:
+                    lyricsDict[word] += 1
+                else:
+                    lyricsDict[word] = 1
+            tData[i] = tData[i][:4]
+            tData[i].append(str(len(lyrics)))
+            tData[i].append(str(len(lyricsDict)))
+    return tData
 
 def makeRows(song,gatherdex):
     row = []
@@ -104,7 +137,6 @@ def makeRows(song,gatherdex):
         dict0 = {}
         for i in range(len(data)):
             item = (data[i])[0]
-            item = item.strip('"')
             if item in dict0:
                 dict0[item].append(i)
             else:
@@ -124,7 +156,6 @@ def makeRows(song,gatherdex):
         dict1 = {}
         for i in range(len(data)):
             item = (data[i])[1]
-            item = item.strip('"')
             if item in dict1:
                 dict1[item].append(i)
             else:
@@ -144,7 +175,6 @@ def makeRows(song,gatherdex):
         dict2 = {}
         for i in range(len(data)):
             item = (data[i])[2]
-            item = item.strip('"')
             if item in dict2:
                 dict2[item].append(i)
             else:
@@ -164,7 +194,6 @@ def makeRows(song,gatherdex):
         dict3 = {}
         for i in range(len(data)):
             item = (data[i])[3]
-            item = item.strip('"')
             if item in dict3:
                 dict3[item].append(i)
             else:
@@ -182,6 +211,14 @@ def makeRows(song,gatherdex):
 
 def tableHTML(data):
     print '    <table border=1>'
+    print '''      <tr>
+        <td>Rank</td>
+        <td>Song Name</td>
+        <td>Artist</td>
+        <td>Year</td>
+        <td># Lyrics</td>
+        <td># Unique Lyrics</td>
+      </tr>'''
     for row in data:
         print '      <tr>'
         for item in row:
