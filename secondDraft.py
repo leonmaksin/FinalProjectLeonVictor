@@ -39,7 +39,9 @@ header = '''<!DOCTYPE html>
     <title>Music!</title>
   </head>
   <body>
-    <form class="button" action="home.html" method="post">'''
+    <form class="" action="home.html" method="post">
+      <input type="submit" name="gohome" value="Home">
+    </form>'''
 
 foot = '''  </body>
 </html>'''
@@ -68,11 +70,17 @@ def main():
     if 'item_type' in form:
         item_type = int(form['item_type'])
 
-    error_message = 'Error, please input an integer between 1 and 5000'
+    error_message1 = 'Error, please input a value'
+    error_message2 = 'Error, please input a different value'
 
-    tableData = makeRows(item_chosen,item_type)
-
-    tableHTML(tableData)
+    if item_chosen == 'Error' or item_type == 'Error':
+        print '    <h1>' + error_message1 + '</h1>'
+    else:
+        tableData = makeRows(item_chosen,item_type)
+        if tableData == 'Error':
+            print '    <h1>' + error_message2 + '</h1>'
+        else:
+            tableHTML(tableData)
 
 def makeRows(song,gatherdex):
     row = []
@@ -83,9 +91,12 @@ def makeRows(song,gatherdex):
             dict01[str(i+1)] = [i]
         index = dict01[song]
         row = []
-        for item in index:
-            row.append(data[item])
-        return row
+        if song in dict01:
+            for item in index:
+                row.append(data[item])
+            return row
+        else:
+            return 'Error'
     #NUMBER
 
     #RANK
@@ -98,11 +109,14 @@ def makeRows(song,gatherdex):
                 dict0[item].append(i)
             else:
                 dict0[item] = [i]
-        index = dict0[song]
-        row = []
-        for item in index:
-            row.append(data[item])
-        return row
+        if song in dict0:
+            index = dict0[song]
+            row = []
+            for item in index:
+                row.append(data[item])
+            return row
+        else:
+            return 'Error'
     #RANK
 
     #NAME
@@ -115,11 +129,14 @@ def makeRows(song,gatherdex):
                 dict1[item].append(i)
             else:
                 dict1[item] = [i]
-        index = dict1[song]
-        row = []
-        for item in index:
-            row.append(data[item])
-        return row
+        if song in dict1:
+            index = dict1[song]
+            row = []
+            for item in index:
+                row.append(data[item])
+            return row
+        else:
+            return 'Error'
     #NAME
 
     #ARTIST
@@ -132,11 +149,14 @@ def makeRows(song,gatherdex):
                 dict2[item].append(i)
             else:
                 dict2[item] = [i]
-        index = dict2[song]
-        row = []
-        for item in index:
-            row.append(data[item])
-        return row
+        if song in dict2:
+            index = dict2[song]
+            row = []
+            for item in index:
+                row.append(data[item])
+            return row
+        else:
+            return 'Error'
     #ARTIST
 
     #YEAR
@@ -149,11 +169,14 @@ def makeRows(song,gatherdex):
                 dict3[item].append(i)
             else:
                 dict3[item] = [i]
-        index = dict3[song]
-        row = []
-        for item in index:
-            row.append(data[item])
-        return row
+        if song in dict3:
+            index = dict3[song]
+            row = []
+            for item in index:
+                row.append(data[item])
+            return row
+        else:
+            return 'Error'
     #YEAR
 #MAIN BODY
 
