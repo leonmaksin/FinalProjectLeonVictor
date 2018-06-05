@@ -142,10 +142,8 @@ def makeRows(song,gatherdex):
             else:
                 dict0[item] = [i]
         index = []
-        for key in dict0:
-            if song in key:
-                for num in dict0[key]:
-                    index.append(num)
+        if song in dict0:
+            index = dict0[song]
         row = []
         for item in index:
             row.append(data[item])
