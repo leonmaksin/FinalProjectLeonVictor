@@ -41,11 +41,15 @@ header = '''<!DOCTYPE html>
     <link rel="stylesheet" href="styletable.css">
   </head>
   <body>
-    <form class="" action="home.html" method="post">
+    <form class="home" action="home.html" method="post">
       <input type="submit" name="gohome" value="Home">
     </form>'''
 
-foot = '''  </body>
+foot = '''    <br>
+    <form class="graph" action="songgraphs.py" method="post">
+  <input type="submit" name="graph" value="Compare Checked Songs on Graph">
+</form>
+  </body>
 </html>'''
 #HTML STUFF
 
@@ -103,6 +107,7 @@ def manipulateData(tData):
         lyrics = tData[i][4]
         if lyrics == 'NA' or lyrics == '':
             tData[i][4] = 'No Lyrics Available'
+            tData[i].append('')
             areLyrics = False
         if areLyrics:
             lyrics = lyrics.split()
@@ -236,11 +241,17 @@ def tableHTML(data):
         <td>Year</td>
         <td># Lyrics</td>
         <td># Unique Lyrics</td>
+        <td>Graph?</td>
       </tr>'''
     for row in data:
         print '      <tr>'
         for item in row:
             print '        <td>' + item + '</td>'
+        print '''        <td>
+          <form class="graph" action="songgraphs.py" method="post">
+            <input type="checkbox" name="''' + str(row) + '''" value="yes"
+          </form>
+        </td>'''
         print '      </tr>'
     print '    </table>'
 
