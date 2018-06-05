@@ -6,11 +6,7 @@ body {
 }
 
 h1 {
-  font-size: 100px;
-}
-
-p {
-  font-size: 30px;
+  font-size: 80px;
 }
 
 input,select {
@@ -25,9 +21,15 @@ input,select {
   font-size: 40px;
 }
 
-.helpButton {
-  text-align: center;
-  font-family: sans-serif;
+.helpIntro {
+  font-size: 30px;
+}
+
+.helpStuff {
+  font-size: 30px;
+  color: #A9A9A9;
+}
+
+i {
   color: gray;
-  font-weight: bold;
 }
