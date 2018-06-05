@@ -15,5 +15,11 @@ input {
 }
 
 table {
-  margin-left: 100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#results {
+  font-size: 12px;
+  color: black;
 }
