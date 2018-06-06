@@ -45,10 +45,7 @@ header = '''<!DOCTYPE html>
       <input type="submit" name="gohome" value="Home">
     </form>'''
 
-foot = '''    <br>
-    <form class="graph" action="songgraphs.py" method="post">
-  <input type="submit" name="graph" value="Compare Checked Songs on Graph">
-</form>
+foot = '''
   </body>
 </html>'''
 #HTML STUFF
@@ -233,6 +230,7 @@ def makeRows(song,gatherdex):
 #MAIN BODY
 
 def tableHTML(data):
+    print '    <form class="graph" action="songgraphs.py" method="post">'
     print '    <table border=1>'
     print '''      <tr>
         <td>Rank</td>
@@ -247,13 +245,12 @@ def tableHTML(data):
         print '      <tr>'
         for item in row:
             print '        <td>' + item + '</td>'
-        print '''        <td>
-          <form class="graph" action="songgraphs.py" method="post">
-            <input type="checkbox" name="''' + str(row) + '''" value="yes"
-          </form>
-        </td>'''
+        print '        <td><input type="checkbox" name="' + str(row) + '"></td>'
         print '      </tr>'
     print '    </table>'
+    print '    <br>'
+    print '    <input type="submit" value="Compare Checked Songs on Graph">'
+    print '    </form>'
 
 print header
 main()
