@@ -30,7 +30,8 @@ header = '''<!DOCTYPE html>
   <body>
     <form class="home" action="home.html" method="post">
       <input type="submit" name="gohome" value="Home">
-    </form>'''
+    </form>
+    <h1>Graphs</h1>'''
 
 foot = '''  </body>
 </html>'''
@@ -102,12 +103,12 @@ def graph(xaxis,yaxis,imagename):
         xaxis.pop(num-popcount)
         yaxis.pop(num-popcount)
         popcount += 1
-    plt.plot(xaxis,yaxis)
+    plt.scatter(xaxis,yaxis)
+    plt.xlabel(xname)
+    plt.ylabel(yname)
     plt.savefig('img/' + imagename + '.png')
     plt.clf()
-    print '    <h1>' + yname + '</h1>'
     print '    <img src="img/' + imagename + '.png">'
-    print '    <h2>' + xname + '</h2>'
 
 print header
 main()

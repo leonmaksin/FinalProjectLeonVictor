@@ -65,24 +65,27 @@ def main():
     if "example" in form:
         last = form["example"]
 
-    item_chosen = 'none'
+    item_chosen = 'Error'
     if 'choose_number' in form:
         item_chosen = form['choose_number']
 
-    item_type = 'none'
+    item_type = 'Error'
     if 'item_type' in form:
         item_type = int(form['item_type'])
 
     error_message1 = 'Error, please input a value'
     error_message2 = 'Error, please input a different value'
 
-    item_chosen = item_chosen.lower()
-    tableData = makeRows(item_chosen,item_type)
-    if tableData == 'Error':
-        print '    <h1>' + error_message2 + '</h1>'
+    if item_chosen == 'Error' or item_type == 'Error':
+        print '    <h1>' + error_message1 + '</h1>'
     else:
-        tableData = manipulateData(tableData)
-        tableHTML(tableData)
+        item_chosen = item_chosen.lower()
+        tableData = makeRows(item_chosen,item_type)
+        if tableData == 'Error':
+            print '    <h1>' + error_message2 + '</h1>'
+        else:
+            tableData = manipulateData(tableData)
+            tableHTML(tableData)
 
 def manipulateData(tData):
     last = tData[-1]
@@ -117,25 +120,13 @@ def manipulateData(tData):
     return tData
 
 def makeRows(song,gatherdex):
-    if song == 'none':
-        return data + [len(data)]
     row = []
     #NUMBER
     if gatherdex == -1:
         row0 = makeRows(song,0)
-        if row0 == 'Error':
-            row0 = [0]
         row1 = makeRows(song,1)
-        if row1 == 'Error':
-            row1 = [0]
         row2 = makeRows(song,2)
-        if row2 == 'Error':
-            row2 = [0]
         row3 = makeRows(song,3)
-        if row3 == 'Error':
-            row3 = [0]
-
-        '''
         poplist = []
         popcount = 0
         for i in range(len(row0)):
@@ -148,8 +139,6 @@ def makeRows(song,gatherdex):
             if row0[i] in row3:
                 if not (i in poplist):
                     poplist.append(i)
-        print row0,row1,row2,row3
-        print poplist
         for item in poplist:
             row0.pop(item-popcount)
             popcount += 1
@@ -174,24 +163,20 @@ def makeRows(song,gatherdex):
         for item in poplist:
             row2.pop(item-popcount)
             popcount += 1
-        '''
 
-        length = row0[-1] + row1[-1] + row2[-1] + row3[-1]
-        row0.remove(row0[-1])
-        row1.remove(row1[-1])
-        row2.remove(row2[-1])
-        row3.remove(row3[-1])
-        row = row0 + row1 + row2 + row3
-        for item in row:
-            newRow = []
-            newRow += row
-            newRow.remove(item)
-            if item in newRow:
-                row = newRow
-        if len(row) == 0:
-            return "Error"
-        row.append(length)
-        return row
+        return row0 + row1 + row2 + row3
+
+'''
+        if RepresentsInt(song):
+            song = int(song)
+            if song >= 1 and song <= 5000:
+                row = [data[song-1],1]
+                return row
+            else:
+                return 'Error'
+        else:
+            return 'Error'
+'''
     #NUMBER
 
     #RANK
