@@ -41,7 +41,7 @@ header = '''<!DOCTYPE html>
     <link rel="stylesheet" href="styletable.css">
   </head>
   <body>
-    <form class="home" action="finalproject.html" method="post">
+    <form class="home" action="home.html" method="post">
       <input type="submit" name="gohome" value="Home">
     </form>'''
 
