@@ -60,12 +60,12 @@ def RepresentsInt(s):
 def main():
     form = cgiFieldStorageToDict(cgi.FieldStorage())
 
-    checked = ''
     if 'checkedall' in form:
         checked = ' checked'
         valList = form['checkedall'].split(',')
+        print valList
         item_chosen = valList[0]
-        item_type = int(valList[1])
+        item_type = valList[1]
     else:
         checked = ''
         item_chosen = 'none'
@@ -85,7 +85,7 @@ def main():
         print '    <h1>' + error_message2 + '</h1>'
     else:
         tableData = manipulateData(tableData)
-        tableHTML(tableData,str(item_chosen),str(item_type),checked)
+        tableHTML(tableData)
 
 def manipulateData(tData):
     last = tData[-1]
@@ -251,7 +251,7 @@ def makeRows(song,gatherdex):
     #YEAR
 #MAIN BODY
 
-def tableHTML(data,item_chosen,item_type,checked):
+def tableHTML(data):
     print '    <form class="graph" action="songgraphs.py" method="post">'
     print '    <table border=1>'
     print '''      <tr>
@@ -265,20 +265,17 @@ def tableHTML(data,item_chosen,item_type,checked):
       </tr>'''
     for row in data:
         print '      <tr>'
-        for i in range(len(row)):
-            print '        <td>' + row[i] + '</td>'
-        print '        <td><input type="checkbox" name="' + str(row).replace('\"','\'') + '"' + checked + '></td>'
+        for item in row:
+            print '        <td>' + item + '</td>'
+        print '        <td><input type="checkbox" name="' + str(row) + '"' + checked + '></td>'
         print '      </tr>'
     print '    </table>'
     print '    <br>'
     print '    <input type="submit" value="Compare Checked Songs on Graph">'
     print '    </form>'
-    print '    <br>'
-    graphbox = '''        <form class="checkall" action="finalProject.py" method="post">
-          <input type="hidden" name="checkedall" value="''' + item_chosen + ',' + item_type + '''">
-          <input type="submit" name="checkedsubmit" value="Check All" style="font-size:20px">
+    print '''        <form class="checkall" action="finalProject.py" method="post">
+          <input type="submit" name="checkedall" value="''' + item_chosen + ',' + item_type '''">
         </form>'''
-    print graphbox
 
 print header
 main()
