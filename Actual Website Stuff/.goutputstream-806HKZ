@@ -45,7 +45,8 @@ header = '''<!DOCTYPE html>
       <input type="submit" name="gohome" value="Home">
     </form>'''
 
-foot = '''  </body>
+foot = '''
+  </body>
 </html>'''
 #HTML STUFF
 
@@ -60,32 +61,31 @@ def RepresentsInt(s):
 def main():
     form = cgiFieldStorageToDict(cgi.FieldStorage())
 
-    checked = ''
-    if 'checkedall' in form:
-        checked = ' checked'
-        valList = form['checkedall'].split(',')
-        item_chosen = valList[0]
-        item_type = int(valList[1])
-    else:
-        checked = ''
-        item_chosen = 'none'
-        if 'choose_number' in form:
-            item_chosen = form['choose_number']
+    last = "this is an example for getting data"
+    if "example" in form:
+        last = form["example"]
 
-        item_type = 'none'
-        if 'item_type' in form:
-            item_type = int(form['item_type'])
+    item_chosen = 'Error'
+    if 'choose_number' in form:
+        item_chosen = form['choose_number']
+
+    item_type = 'Error'
+    if 'item_type' in form:
+        item_type = int(form['item_type'])
 
     error_message1 = 'Error, please input a value'
     error_message2 = 'Error, please input a different value'
 
-    item_chosen = item_chosen.lower()
-    tableData = makeRows(item_chosen,item_type)
-    if tableData == 'Error':
-        print '    <h1>' + error_message2 + '</h1>'
+    if item_chosen == 'Error' or item_type == 'Error':
+        print '    <h1>' + error_message1 + '</h1>'
     else:
-        tableData = manipulateData(tableData)
-        tableHTML(tableData,str(item_chosen),str(item_type),checked)
+        item_chosen = item_chosen.lower()
+        tableData = makeRows(item_chosen,item_type)
+        if tableData == 'Error':
+            print '    <h1>' + error_message2 + '</h1>'
+        else:
+            tableData = manipulateData(tableData)
+            tableHTML(tableData)
 
 def manipulateData(tData):
     last = tData[-1]
@@ -120,40 +120,63 @@ def manipulateData(tData):
     return tData
 
 def makeRows(song,gatherdex):
-    if song == 'none':
-        return data + [len(data)]
     row = []
     #NUMBER
     if gatherdex == -1:
         row0 = makeRows(song,0)
-        if row0 == 'Error':
-            row0 = [0]
         row1 = makeRows(song,1)
-        if row1 == 'Error':
-            row1 = [0]
         row2 = makeRows(song,2)
-        if row2 == 'Error':
-            row2 = [0]
         row3 = makeRows(song,3)
-        if row3 == 'Error':
-            row3 = [0]
+        poplist = []
+        popcount = 0
+        for i in range(len(row0)):
+            if row0[i] in row1:
+                if not (i in poplist):
+                    poplist.append(i)
+            if row0[i] in row2:
+                if not (i in poplist):
+                    poplist.append(i)
+            if row0[i] in row3:
+                if not (i in poplist):
+                    poplist.append(i)
+        for item in poplist:
+            row0.pop(item-popcount)
+            popcount += 1
+        poplist = []
+        popcount = 0
+        for i in range(len(row1)):
+            if row1[i] in row2:
+                if not (i in poplist):
+                    poplist.append(i)
+            if row1[i] in row3:
+                if not (i in poplist):
+                    poplist.append(i)
+        for item in poplist:
+            row1.pop(item-popcount)
+            popcount += 1
+        poplist = []
+        popcount = 0
+        for i in range(len(row2)):
+            if row2[i] in row3:
+                if not (i in poplist):
+                    poplist.append(i)
+        for item in poplist:
+            row2.pop(item-popcount)
+            popcount += 1
 
-        length = row0[-1] + row1[-1] + row2[-1] + row3[-1]
-        row0.remove(row0[-1])
-        row1.remove(row1[-1])
-        row2.remove(row2[-1])
-        row3.remove(row3[-1])
-        row = row0 + row1 + row2 + row3
-        for item in row:
-            newRow = []
-            newRow += row
-            newRow.remove(item)
-            if item in newRow:
-                row = newRow
-        if len(row) == 0:
-            return "Error"
-        row.append(length)
-        return row
+        return row0 + row1 + row2 + row3
+
+'''
+        if RepresentsInt(song):
+            song = int(song)
+            if song >= 1 and song <= 5000:
+                row = [data[song-1],1]
+                return row
+            else:
+                return 'Error'
+        else:
+            return 'Error'
+'''
     #NUMBER
 
     #RANK
@@ -251,7 +274,7 @@ def makeRows(song,gatherdex):
     #YEAR
 #MAIN BODY
 
-def tableHTML(data,item_chosen,item_type,checked):
+def tableHTML(data):
     print '    <form class="graph" action="songgraphs.py" method="post">'
     print '    <table border=1>'
     print '''      <tr>
@@ -265,20 +288,14 @@ def tableHTML(data,item_chosen,item_type,checked):
       </tr>'''
     for row in data:
         print '      <tr>'
-        for i in range(len(row)):
-            print '        <td>' + row[i] + '</td>'
-        print '        <td><input type="checkbox" name="' + str(row).replace('\"','\'') + '"' + checked + '></td>'
+        for item in row:
+            print '        <td>' + item + '</td>'
+        print '        <td><input type="checkbox" name="' + str(row) + '"></td>'
         print '      </tr>'
     print '    </table>'
     print '    <br>'
     print '    <input type="submit" value="Compare Checked Songs on Graph">'
     print '    </form>'
-    print '    <br>'
-    graphbox = '''        <form class="checkall" action="finalProject.py" method="post">
-          <input type="hidden" name="checkedall" value="''' + item_chosen + ',' + item_type + '''">
-          <input type="submit" name="checkedsubmit" value="Check All" style="font-size:20px">
-        </form>'''
-    print graphbox
 
 print header
 main()
