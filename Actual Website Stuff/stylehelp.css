@@ -5,7 +5,7 @@ body {
   font-weight: bold;
 }
 
-h1 {
+h1, h2, h3 {
   font-size: 80px;
 }
 
@@ -21,12 +21,20 @@ input,select {
   font-size: 40px;
 }
 
-.helpIntro {
+.features {
   font-size: 30px;
 }
 
-.helpStuff {
+.features2 {
   font-size: 30px;
+  color: #A9A9A9;
+}
+
+.Descriptions {
+  font-size: 30px}
+
+.Help {
+  font-size: 30px
   color: #A9A9A9;
 }
 
