@@ -28,7 +28,7 @@ header = '''<!DOCTYPE html>
     <link rel="stylesheet" href="stylegraphs.css">
   </head>
   <body>
-    <form class="home" action="home.html" method="post">
+    <form class="home" action="finalproject.html" method="post">
       <input type="submit" name="gohome" value="Home">
     </form>
     <h1>Graphs</h1>'''
