@@ -5,33 +5,78 @@
     <link rel="stylesheet" href="stylefinal.css">
   </head>
   <body>
-    <h1>Features</h1>
-    <div class="features"
-      <p>The homepage allows the user to choose from five different categories:
-        After they choose a category, the user will then type something in the search box.</br>
+    <h1>Leon and Victor's CS Final Project</h1>
+    <div class="about">
+      <h2>About</h2>
+      <p>This is a database containing the top 100 songs on the billboard 100 from 1965 to 2015</p>
+      <p>This project give you the results of the songs that you search by in a table including the rank, song name, artist name, year, number of lyrics, and number of unique lyrics</p>
+      <p>You can also check off songs to form a graph</p>
     </div>
-    <div class="features2"
-        <p>After choosing a category and typing something in, the user will then be presented with a table of information.</br>
-          With the table, the user has to option to check off the graph boxes manually or with a button.<br>
-          Afterwards, the user can click the compare checked songs on graph button.<br>
-          The graph is a scatter plot with axes labeled and it compares the songs selected.</br>
-          Finally, each page has a button redirecting the user to the homepage.<br>
+    <div class="instructions">
+      <h2>Instructions</h2>
+      <p>The homepage allows the user to choose from five different categories:</p>
+      <ol>
+        <li>All Fields - This will search in all the other four fields</li>
+        <li>Song Name - This will search by the name songs</li>
+        <li>Artist - This will search by the artist of songs</li>
+        <li>Year - This will search by the year the songs was on the billboard 100</li>
+        <li>Rank - This will search by the rank of the songs on the billboard 100</li>
+      </ol>
+      <a href="help.html">More info on help page</a>
+      <p>After they choosing a category, the user should then type their input (what they will search by)</p>
+      <p>The webpage will present a list of songs with statistics, this is where the main data is shown</p>
+      <p>You can then check off songs to graph (or check all) and graph them in comparison on six different graphs</p>
     </div>
-    <h2>Description</h2>
-    <div class="Descriptions"
-      <p>This site is a database of music organized so that one can view the music in certain ways.</br>
-      On this website, one can choose one of four ways to view the data, and then insert a value to view the desired data.</br>
     </div>
-    <h3>Help</h3>
-    <div class="Help"
-      <p>If you are searching by song name, please type in a  song name.</br>
-          If you are searching by artist, please type in an artist.</br>
-          If you are searching by year, please type in a number from 1965 to 2015.</br>
-          If you are searching by rank, please type in a number from 1 to 100</br>
-          If you type in something that is not in the dataset, an error message will be displayed.</br>
+    <div class="features">
+      <h2>Working Features</h2>
+      <p>A list of all of the features:</p>
+      <ul>
+        <li>Home Page:
+          <ul>
+          <li>A search bar allowing you to search by certain field</li>
+          <li>An advanced search algorithm that isn't case sensitive and auto-completes</li>
+          </ul>
+        </li>
+        <li>Help Page:
+          <ul>
+          <li>A help page that gives directions on how to use the site</li>
+          </ul>
+        </li>
+        <li>Table Page:
+          <ul>
+          <li>Loads song data into a table</li>
+          <li>Each row is a different song</li>
+          <li>The columns are:
+            <ol>
+            <li>Rank</li>
+            <li>Song Name</li>
+            <li>Artist</li>
+            <li>Year</li>
+            <li>Number of lyrics</li>
+            <li>Number of unique lyrics</li>
+            <li>A checkbox that allows you to choose which song to graph</li>
+            </ol>
+          </li>
+          </ul>
+        </li>
+        <li>Graph Page:
+          <ul>
+          <li>Six sperate graphs that display a comparison of different song statistics using a scatter plot</li>
+          <li>Statistics include:
+            <ul>
+            <li>Rank</li>
+            <li>Year</li>
+            <li>Number of Lyrics</li>
+            <li>Number of Unique Lyrics</li>
+            </ul>
+          </li>
+          </ul>
+        </li>
+        <li>Other Miscelaneous
+        </li>
+      </ul>
     </div>
-    <form class="home" action="home.html" method="post">
-      <input type="submit" name="gohome" value="Home">
-    </form>
+    <a href="home.html">Website Homepage</a>
   </body>
 </html>
