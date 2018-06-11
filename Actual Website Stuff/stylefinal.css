@@ -1,0 +1,19 @@
+body {
+  text-align: left;
+  font-family: sans-serif;
+  color: gray;
+  font-weight: bold;
+}
+
+h1 {
+  text-align: center;
+  color: black;
+}
+
+h2 {
+  color: dimgrey;
+}
+
+#homelink {
+  font-size: 30px;
+}
